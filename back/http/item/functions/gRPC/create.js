@@ -1,3 +1,5 @@
+// © 2025 Divhunt GmbH — Licensed under the Divhunt Framework License. See LICENSE for terms.
+
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { fileURLToPath } from 'url'

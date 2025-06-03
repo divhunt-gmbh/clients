@@ -1,0 +1,40 @@
+Copyright © 2025 Divhunt GmbH
+
+This License governs use of the Divhunt framework (the "Software"). By accessing or using the Software, you agree to be bound by the terms of this License.
+
+1. GRANT OF LICENSE  
+   You are granted a limited, non-exclusive, non-transferable, non-sublicensable license to use the Software solely for:
+   - personal projects;
+   - internal business purposes;
+   - client work, provided the client is not reselling or redistributing the Software.
+
+2. ATTRIBUTION AND BRANDING  
+   a. All uses of the Software must retain visible attribution to “Divhunt”.  
+   b. You must not remove, obscure, alter, or suppress any branding, notices, or credits related to Divhunt.  
+   c. Any public project using the Software must clearly state that it uses the “Divhunt Framework”.
+
+3. PROHIBITED USES  
+   The following are strictly prohibited:  
+   a. Rebranding, renaming, or representing the Software as your own work;  
+   b. Creating derivative frameworks or similar software tools based on the Software with the intent of distribution;  
+   c. Redistributing, sublicensing, or selling the Software or any modified version thereof;  
+   d. Using the Software in any commercial product, service, or offering without explicit, written permission from Divhunt GmbH.
+
+4. MODIFICATIONS  
+   You may modify the Software for personal or internal use only. Modified versions may not be:  
+   - redistributed;  
+   - rebranded or marketed as original work;  
+   - offered as a service or product.
+
+5. ENFORCEMENT AND TERMINATION  
+   Any violation of this License will result in the immediate termination of all rights granted herein. Divhunt GmbH reserves the right to pursue legal remedies including but not limited to damages, injunctions, and recovery of profits obtained through unauthorized use.
+
+6. NO WARRANTY  
+   THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. IN NO EVENT SHALL DIVHUNT GMBH BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OR INABILITY TO USE THE SOFTWARE.
+
+7. GOVERNING LAW  
+   This License shall be governed by and construed in accordance with the laws of Switzerland. All disputes shall be subject to the exclusive jurisdiction of the courts of Zug, Switzerland.
+
+---
+
+For commercial licensing or other questions, please contact: **dejan@divhunt.com**

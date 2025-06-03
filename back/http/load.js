@@ -1,3 +1,5 @@
+// © 2025 Divhunt GmbH — Licensed under the Divhunt Framework License. See LICENSE for terms.
+
 import clients from '#clients/addon.js';
 
 import '#clients/item/catch/add.js';

@@ -1,3 +1,5 @@
+// © 2025 Divhunt GmbH — Licensed under the Divhunt Framework License. See LICENSE for terms.
+
 import * as grpc from '@grpc/grpc-js'
 import clientsGRPC from '#clients/grpc/addon.js';
 import divhunt from '#framework/load.js';
