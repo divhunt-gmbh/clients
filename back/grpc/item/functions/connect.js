@@ -1,16 +1,14 @@
 // © 2025 Divhunt GmbH — Licensed under the Divhunt Framework License. See LICENSE for terms.
 
 import { fileURLToPath } from 'url'
-import { dirname, join, resolve } from 'path'
+import { dirname, join } from 'path'
 
 import clientsGRPC from '#clients/grpc/addon.js';
 
 clientsGRPC.Fn('item.connect', async function(item)
 {
-    this.methods.connect = async () =>
+    const attempt = async () =>
     {
-        console.log('Trying to established connection.');
-
         try
         {
             if(item.Get('instance'))
@@ -66,15 +64,15 @@ clientsGRPC.Fn('item.connect', async function(item)
             });
 
             item.Set('instance', client);
+            item.Set('retryCount', 0);
             item.Get('onConnect') && item.Get('onConnect').call(item, client);
         }
         catch(error)
         {
             item.Get('onError') && item.Get('onError').call(item, error.message);
-            
-            setTimeout(() => this.methods.connect(), 10000);
+            item.Fn('attempt', attempt);
         }
     };
 
-    await this.methods.connect();
+    await attempt();
 });

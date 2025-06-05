@@ -52,6 +52,13 @@ clientsGRPC.Fn('item.stream', async function(item)
         item.Get('onStreamRespond') && item.Get('onStreamRespond').call(item, stream, {type: 'respond', data, message, code, id});
     };
 
+    /* Subscribe Method */
+
+    stream.subscribe = function(name)
+    {
+        
+    };
+
     /* Other */
 
     item.Get('onStream') && item.Get('onStream').call(item, stream);
@@ -80,6 +87,12 @@ clientsGRPC.Fn('item.stream', async function(item)
     stream.on('end', () => 
     {
         item.Get('onStreamEnd') && item.Get('onStreamEnd').call(item, stream);
+        item.Set('instance', null);
+        
+        item.Fn('attempt', () => 
+        {
+            item.Fn('stream');
+        });
     })
 
     return stream;
