@@ -1,11 +1,13 @@
 // © 2025 Divhunt GmbH — Licensed under the Divhunt Framework License. See LICENSE for terms.
 
-import * as grpc from '@grpc/grpc-js'
 import clientsGRPC from '#clients/grpc/addon.js';
 import divhunt from '#framework/load.js';
 
 clientsGRPC.Fn('item.stream', async function(item)
 {
+    const grpcModule = await import('@grpc/grpc-js');
+    const grpc = grpcModule.default || grpcModule;
+
     const client = item.Get('instance');
     
     if(!client)
@@ -32,7 +34,7 @@ clientsGRPC.Fn('item.stream', async function(item)
             data: JSON.stringify({type: 'request', service, name, data, id})
         });
 
-        item.Get('onStreamRequest') && item.Get('onStreamRequest')(stream, {type: 'request', service, name, data, id});
+        item.Get('onStreamRequest') && item.Get('onStreamRequest').call(item, stream, {type: 'request', service, name, data, id});
 
         return item.Fn('resolve', id);
     };
@@ -47,19 +49,12 @@ clientsGRPC.Fn('item.stream', async function(item)
             data: JSON.stringify({type: 'respond', data, message, code, id})
         });
 
-        item.Get('onStreamRespond') && item.Get('onStreamRespond')(stream, {type: 'respond', data, message, code, id});
-    };
-
-    /* Subscribe Method */
-
-    stream.subscribe = function(name)
-    {
-        
+        item.Get('onStreamRespond') && item.Get('onStreamRespond').call(item, stream, {type: 'respond', data, message, code, id});
     };
 
     /* Other */
 
-    item.Get('onStream') && item.Get('onStream')(stream);
+    item.Get('onStream') && item.Get('onStream').call(item, stream);
 
     /* Data Event */
 
@@ -77,19 +72,14 @@ clientsGRPC.Fn('item.stream', async function(item)
 
     /* Other Events */
 
-    stream.on('close', () => 
-    {
-        item.Get('onStreamClose') && item.Get('onStreamClose')(stream);
-    })
-
     stream.on('error', (error) => 
     {
-        item.Get('onStreamError') && item.Get('onStreamError')(stream, error);
+        item.Get('onStreamError') && item.Get('onStreamError').call(item, stream, error.message);
     })
 
     stream.on('end', () => 
     {
-        item.Get('onStreamEnd') && item.Get('onStreamEnd')(stream);
+        item.Get('onStreamEnd') && item.Get('onStreamEnd').call(item, stream);
     })
 
     return stream;

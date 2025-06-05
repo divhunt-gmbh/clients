@@ -16,7 +16,6 @@ const clientsGRPC = divhunt.Addon('clients.grpc', (addon) =>
 
     addon.Field('onStream', ['function']);
     addon.Field('onStreamError', ['function']);
-    addon.Field('onStreamClose', ['function']);
     addon.Field('onStreamEnd', ['function']);
     addon.Field('onStreamData', ['function']);
     addon.Field('onStreamRequest', ['function']);
