@@ -7,5 +7,6 @@ import '#clients/grpc/item/catch/add.js';
 import '#clients/grpc/item/functions/connect.js';
 import '#clients/grpc/item/functions/stream.js';
 import '#clients/grpc/item/functions/resolve.js';
+import '#clients/grpc/item/functions/attempt.js';
 
 export default clientsGRPC;
