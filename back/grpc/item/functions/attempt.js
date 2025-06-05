@@ -9,7 +9,7 @@ clientsGRPC.Fn('item.attempt', function(item, callback)
     
     item.Set('retryCount', retryCount);
     
-    if(retryCount >= maxRetries)
+    if(retryCount > maxRetries)
     {
         item.Get('onRetry') && item.Get('onRetry').call(item, retryCount, true);
         return;
@@ -20,5 +20,5 @@ clientsGRPC.Fn('item.attempt', function(item, callback)
     setTimeout(() => 
     {
         callback();
-    }, 10000);
+    }, item.Get('retryDelay'));
 });
