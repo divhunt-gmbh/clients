@@ -10,9 +10,12 @@ const clientsGRPC = divhunt.Addon('clients.grpc', (addon) =>
     addon.Field('port', ['number', 50000]);
     addon.Field('timeout', ['number', 15]);
     addon.Field('metadata', ['object', {}]);
+    addon.Field('retryCount', ['number', 0]);
+    addon.Field('maxRetries', ['number', 10]);
     
     addon.Field('onError', ['function']);
     addon.Field('onConnect', ['function']);
+    addon.Field('onRetry', ['function']);
 
     addon.Field('onStream', ['function']);
     addon.Field('onStreamError', ['function']);
