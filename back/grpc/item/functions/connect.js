@@ -9,7 +9,7 @@ clientsGRPC.Fn('item.connect', async function(item)
 {
     if(item.Get('instance'))
     {
-        return;
+        return item.Get('instance');
     }
 
     try
@@ -33,17 +33,15 @@ clientsGRPC.Fn('item.connect', async function(item)
 
         const universalPackage = grpc.loadPackageDefinition(definition).universal;
         
-        const client = new universalPackage.UniversalService(
-            `${item.Get('host')}:${item.Get('port')}`, 
-            grpc.credentials.createInsecure(), 
-            {
-                'grpc.max_send_message_length': 1024 * 1024 * 100,
-                'grpc.max_receive_message_length': 1024 * 1024 * 100,
-                'grpc.keepalive_time_ms': 30000,
-                'grpc.keepalive_timeout_ms': 10000,
-                'grpc.keepalive_permit_without_calls': 1
-            }
-        );
+        const client = new universalPackage.UniversalService(`${item.Get('host')}:${item.Get('port')}`, grpc.credentials.createInsecure(), {
+            'grpc.max_send_message_length': 1024 * 1024 * 100,
+            'grpc.max_receive_message_length': 1024 * 1024 * 100,
+            'grpc.keepalive_time_ms': 30000,
+            'grpc.keepalive_timeout_ms': 10000,
+            'grpc.keepalive_permit_without_calls': 1
+        });
+
+        item.Set('instance', client);
 
         await new Promise((resolve, reject) => 
         {
@@ -60,13 +58,16 @@ clientsGRPC.Fn('item.connect', async function(item)
             });
         });
 
-        item.Set('instance', client);
-        item.Set('retryCount', 0);
+        
         item.Get('onConnect') && item.Get('onConnect').call(item, client);
+
+        return client;
     }
     catch(error)
     {
+        item.Get('instance')?.close();
+        item.Set('instance', null);
+        
         item.Get('onError') && item.Get('onError').call(item, error.message);
-        item.Fn('attempt', () => item.Fn('connect'));
     }
 });

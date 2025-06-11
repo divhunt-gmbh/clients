@@ -5,15 +5,15 @@ import divhunt from '#framework/load.js';
 
 clientsGRPC.Fn('item.stream', async function(item)
 {
+    const client = item.Get('instance');
+
+    if(!client)
+    {
+        return;
+    }
+
     try
     {
-        const client = item.Get('instance');
-    
-        if(!client)
-        {
-            throw new Error('gRPC connection wasn\'t established before.');
-        }
-
         const grpcModule = await import('@grpc/grpc-js');
         const grpc = grpcModule.default || grpcModule;
 
@@ -67,21 +67,23 @@ clientsGRPC.Fn('item.stream', async function(item)
         stream.on('error', (error) => 
         {
             item.Get('onStreamError') && item.Get('onStreamError').call(item, stream, error.message);
-            item.Set('instance', null);
-            item.Fn('attempt', () => item.Fn('stream'));
         });
 
         stream.on('end', () => 
         {
             item.Get('onStreamEnd') && item.Get('onStreamEnd').call(item, stream);
+
+            item.Get('instance').close();
             item.Set('instance', null);
-            item.Fn('attempt', () => item.Fn('stream'));
         });
 
         return stream;
     }
     catch(error)
     {
+        item.Get('instance').close();
+        item.Set('instance', null);
+        
         item.Get('onError') && item.Get('onError').call(item, error.message);
     }
 });

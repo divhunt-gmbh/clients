@@ -4,19 +4,15 @@ import divhunt from '#framework/load.js';
 
 const clientsGRPC = divhunt.Addon('clients.grpc', (addon) =>
 {
-    addon.Field('id', ['string']);
+    addon.Field('id', ['string|number']);
     addon.Field('instance', ['object']);
     addon.Field('host', ['string', 'localhost']);
     addon.Field('port', ['number', 50000]);
-    addon.Field('timeout', ['number', 15]);
+    addon.Field('timeout', ['number', 5]);
     addon.Field('metadata', ['object', {}]);
-    addon.Field('retryCount', ['number', 0]);
-    addon.Field('maxRetries', ['number', 3]);
-    addon.Field('retryDelay', ['number', 1000]);
     
     addon.Field('onError', ['function']);
     addon.Field('onConnect', ['function']);
-    addon.Field('onRetry', ['function']);
 
     addon.Field('onStream', ['function']);
     addon.Field('onStreamError', ['function']);
